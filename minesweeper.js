@@ -62,7 +62,7 @@ var board = {
 }
 
 function startGame () {
-  let squares = board.cells
+  var squares = board.cells
   for (let x = 0; x < squares.length; x++) {
     squares[x].surroundingMines = countSurroundingMines (squares[x]);
 
@@ -91,5 +91,31 @@ function checkForWin () {
 // It will return cell objects in an array. You should loop through 
 // them, counting the number of times `cell.isMine` is true.
 function countSurroundingMines (cell) {
+  var surrounding = lib.getSurroundingCells(cell.row, cell.col);
+  var total = 0;
+  for (y = 0; y < surrounding.length; y++) {
+    if (surrounding[y].isMine === true) {
+      total++
+    }
+  }
+  return total
 }
 
+
+
+/* Returns a subset of the `cells` array, including only those cells
+// which are adjacent to `row`, `col`
+function getSurroundingCells (row, col) {
+  var columns = getRange(getLowerBound(col), getUpperBound(col))
+  var rows = getRange(getLowerBound(row), getUpperBound(row))
+  return result = board.cells
+    .filter(function (cell) {
+      // Filter out the current cell
+      if (cell.row === row && cell.col === col) {
+        return false
+      }
+      // Grab the rest of the adjacent cells
+      return columns.includes(cell.col) && rows.includes(cell.row)
+    })
+}
+*/
