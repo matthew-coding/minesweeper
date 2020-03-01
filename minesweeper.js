@@ -62,6 +62,11 @@ var board = {
 }
 
 function startGame () {
+  let squares = board.cells
+  for (let x = 0; x < squares.length; x++) {
+    squares[x].surroundingMines = countSurroundingMines (squares[x]);
+
+  }
   // Don't remove this function call: it makes the game work!
   lib.initBoard()
 }
