@@ -1,65 +1,57 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
 // Define your `board` object here!
-var board = {
-  cells: [
-    {
-      row: 0,
-      col: 0,
-      isMine: true,
-      hidden: true
-    },
-    {
-      row: 0,
-      col: 1,
-      isMine: false,
-      hidden: true
-      
-    },
-    {
-      row: 0,
-      col: 2,
-      isMine: false,
-      hidden: true
-    },
-    {
-      row: 1,
-      col: 0,
-      isMine: false,
-      hidden: true
-    },
-    {
-      row: 1,
-      col: 1,
-      isMine: true,
-      hidden: true
-    },
-    {
-      row: 1,
-      col: 2,
-      isMine: false,
-      hidden: true
-    },
-    {
-      row: 2,
-      col: 0,
-      isMine: false,
-      hidden: true
-    },
-    {
-      row: 2,
-      col: 1,
-      isMine: false,
-      hidden: true
-    },
-    {
-      row: 2,
-      col: 2,
-      isMine: false,
-      hidden: true
-    }
-  ]
+var board = {}
+
+// this function needs to generate a board by itself. Each cell needs to have 4 properties, row, col, isMine, and hidden.
+// for a simple 3x3 game I need to have row.col of 00, 01, 02, 10, 11, 12, 20, 21, 22
+//
+
+
+//Instead of just typing out the global board object, write a function to create it.
+//Each cell will need row, col, isMine, isMarked, and hidden properties.
+//You could start by simply setting every isMine to true, but later you'll probably want to have a random number of mines scattered throughout the board.
+
+
+//create the array within the function?
+// how to shorten this code? Maybe have some if statements? if (board.cells[q].row > 3) {board.cells[q].row == 3} ?
+function createCells () {
+  board.cells = []
+  for (var q = 0; q < 3; q++) {
+    board.cells.push (
+      {
+        row: 0,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+      })
+      board.cells.push (
+      {
+        row: 1,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+      })
+      board.cells.push (
+      {
+        row: 2,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+       })
+
 }
+}
+
+createCells ()
+
+/*
+function for creating a random board
+var board = {}
+board.cells = []
+
+
+*/
 
 function startGame () {
   var squares = board.cells
@@ -94,7 +86,7 @@ function checkForWin () {
       winCon +=1
     }
     }
-    
+
   if (winCon == board.cells.length) {
 
   lib.displayMessage('You win!')
@@ -121,21 +113,3 @@ function countSurroundingMines (cell) {
   return total
 }
 
-
-
-/* Returns a subset of the `cells` array, including only those cells
-// which are adjacent to `row`, `col`
-function getSurroundingCells (row, col) {
-  var columns = getRange(getLowerBound(col), getUpperBound(col))
-  var rows = getRange(getLowerBound(row), getUpperBound(row))
-  return result = board.cells
-    .filter(function (cell) {
-      // Filter out the current cell
-      if (cell.row === row && cell.col === col) {
-        return false
-      }
-      // Grab the rest of the adjacent cells
-      return columns.includes(cell.col) && rows.includes(cell.row)
-    })
-}
-*/
