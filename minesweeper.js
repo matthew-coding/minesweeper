@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', startGame)
-
 // Define your `board` object here!
 var board = {}
 
@@ -15,7 +14,7 @@ var board = {}
 
 //create the array within the function?
 // how to shorten this code? Maybe have some if statements? if (board.cells[q].row > 3) {board.cells[q].row == 3} ?
-function createCells () {
+function createCellsS () {
   board.cells = []
   for (var q = 0; q < 3; q++) {
     board.cells.push (
@@ -43,7 +42,93 @@ function createCells () {
 }
 }
 
-createCells ()
+function createCellsM () {
+  board.cells = []
+  for (var q = 0; q < 4; q++) {
+    board.cells.push (
+      {
+        row: 0,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+      })
+      board.cells.push (
+      {
+        row: 1,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+      })
+      board.cells.push (
+      {
+        row: 2,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+       })
+       board.cells.push({
+        row: 3,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+       })
+
+}
+}
+
+function createCellsL () {
+  board.cells = []
+  for (var q = 0; q < 5; q++) {
+    board.cells.push (
+      {
+        row: 0,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+      })
+      board.cells.push (
+      {
+        row: 1,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+      })
+      board.cells.push (
+      {
+        row: 2,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+       })
+       board.cells.push({
+        row: 3,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+       })
+       board.cells.push({
+        row: 4,
+        col: q,
+        isMine: Math.random() >= 0.8,
+        hidden: true
+       })
+
+}
+}
+
+createCellsL ()
+
+//write a function for clearing the board for when the buttons are pressed an functional?
+let small = document.getElementById("small")
+small.onclick = function smallBoard(){
+  clearBoard();
+  createCellsS()
+};
+
+
+function clearBoard () {
+  delete board.cells
+}
 
 /*
 function for creating a random board
@@ -54,6 +139,9 @@ board.cells = []
 */
 
 function startGame () {
+
+  createCellsL ()
+
   var squares = board.cells
   for (let x = 0; x < squares.length; x++) {
     squares[x].surroundingMines = countSurroundingMines (squares[x]);
@@ -67,6 +155,14 @@ document.addEventListener ("contextmenu", checkForWin);
   // Don't remove this function call: it makes the game work!
   lib.initBoard()
 }
+
+// this function resets the board when a button is pressed
+
+function resetBoard() {
+  document.getElementsByClassName("board")[0].innerHTML = ""
+  startGame();
+}
+
 
 // Define this function to look for a win condition:
 //
@@ -90,8 +186,32 @@ function checkForWin () {
   if (winCon == board.cells.length) {
 
   lib.displayMessage('You win!')
+  winSound()
+
     }
   
+}
+
+function winSound(url){
+  var audio = document.createElement('audio');
+  audio.style.display = "none";
+  audio.src = "./sounds/defused.mp3";
+  audio.autoplay = true;
+  audio.onended = function(){
+    audio.remove() 
+  };
+  document.body.appendChild(audio);
+}
+
+function loseSound(url){
+  var audio = document.createElement('audio');
+  audio.style.display = "none";
+  audio.src = "./sounds/explosion.mp3";
+  audio.autoplay = true;
+  audio.onended = function(){
+    audio.remove() 
+  };
+  document.body.appendChild(audio);
 }
 
 // Define this function to count the number of mines around the cell

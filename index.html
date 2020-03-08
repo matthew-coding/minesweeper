@@ -9,7 +9,15 @@
   </head>
   <body>
     <div id="message"></div>
-    <div id="notes"></div>
+    <div id="notes">
+      <input type = "radio" id = "small" value="small" name = "size" onclick="smallBoard()">
+      <label for="small">Small</label><br>
+      <input type = "radio" id="medium" value="medium" name = "size" onclick="">
+      <label for="medium">Medium</label><br>
+      <input type = "radio" id="large" value="large" name = "size" onclick="">
+      <label for="large">Large</label><br>
+    </div>
     <div class="board"></div>
+    <input type="button" value="Reset" onclick="resetBoard()">
   </body>
 </html>
